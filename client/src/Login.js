@@ -1,45 +1,78 @@
-import "./Login.css";
-import Button from "react-bootstrap/Button";
-import FormControl from "react-bootstrap/FormControl";
-import InputGroup from "react-bootstrap/InputGroup";
+import React, { useState } from "react";
+import axios from "axios";
+import { setUserSession } from "./Utils/Common";
 
-function Login() {
+function Login(props) {
+  const [loading, setLoading] = useState(false);
+  const username = useFormInput("");
+  const password = useFormInput("");
+  const [error, setError] = useState(null);
+
+  // handle button click of login form
+  const handleLogin = () => {
+    setError(null);
+    setLoading(true);
+    axios
+      .post("http://localhost:3001/api/login", {
+        username: username.value,
+        password: password.value,
+      })
+      .then((response) => {
+        setLoading(false);
+        setUserSession(response.data.token, response.data.user);
+        props.history.push("/dashboard");
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.response.status === 401)
+          setError(error.response.data.message);
+        else setError("Something went wrong. Please try again later.");
+      });
+  };
+
   return (
-    <div className="App">
-      <h1 className="FlexCenter">WinterTake</h1>
+    <div>
+      Login
       <br />
-      <div className="LoginForm">
-        <label>Email</label>
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-          <FormControl
-            name="Email"
-            placeholder="Email"
-            aria-label="Email"
-            aria-describedby="basic-addon1"
-          />
-        </InputGroup>
-        <label>Password</label>
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon2">Password</InputGroup.Text>
-          <FormControl
-            name="Password"
-            placeholder="Password"
-            aria-label="Password"
-            aria-describedby="basic-addon2"
-          />
-        </InputGroup>
-        <div>
-          <Button className="m-1" variant="success">
-            Login
-          </Button>
-          <Button className="m-1" variant="primary">
-            Register
-          </Button>
-        </div>
+      <br />
+      <div>
+        Username
+        <br />
+        <input type="text" {...username} autoComplete="new-password" />
       </div>
+      <div style={{ marginTop: 10 }}>
+        Password
+        <br />
+        <input type="password" {...password} autoComplete="new-password" />
+      </div>
+      {error && (
+        <>
+          <small style={{ color: "red" }}>{error}</small>
+          <br />
+        </>
+      )}
+      <br />
+      <input
+        type="button"
+        value={loading ? "Loading..." : "Login"}
+        onClick={handleLogin}
+        disabled={loading}
+      />
+      <br />
     </div>
   );
 }
+
+const useFormInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+  return {
+    value,
+    onChange: handleChange,
+  };
+};
 
 export default Login;

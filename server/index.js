@@ -6,14 +6,16 @@ const cors = require("cors");
 const config = require("./config");
 
 //import routes
-const authRoute = require("./routes/auth.js");
-const postRoute = require("./routes/posts.js");
+const verifyRoute = require("./routes/verify");
+const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/user", authRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/verify", verifyRoute);
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`);
