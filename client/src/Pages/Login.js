@@ -5,17 +5,17 @@ import { Button, FormControl, InputGroup } from "react-bootstrap";
 
 function Login(props) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const email = useFormInput("");
   const password = useFormInput("");
 
   // handle button click of login form
   const handleLogin = () => {
-    setError(null);
+    setError(false);
     setLoading(true);
     axios
-      .post("http://localhost:3001/api/login", {
-        username: email.value,
+      .post("http://localhost:3001/api/user/login", {
+        email: email.value,
         password: password.value,
       })
       .then((response) => {
@@ -23,11 +23,9 @@ function Login(props) {
         setUserSession(response.data.token, response.data.user);
         props.history.push("/dashboard");
       })
-      .catch((error) => {
+      .catch((error, val) => {
         setLoading(false);
-        if (error.response.status === 401)
-          setError(error.response.data.message);
-        else setError("Something went wrong. Please try again later.");
+        setError(error.response.data);
       });
   };
 

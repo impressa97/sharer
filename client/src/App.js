@@ -10,7 +10,7 @@ import Home from "./Pages/Home";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common.js";
 
 function App() {
-  const [authLoading, setAuthLoading] = useState(true);
+  const [User, setAuthLoading] = useState({});
 
   useEffect(() => {
     const token = getToken();
@@ -31,13 +31,13 @@ function App() {
       });
   }, []);
 
-  if (authLoading && getToken()) {
+  if (User && getToken()) {
     return <div className="content">Checking Authentication...</div>;
   }
 
   return (
-    <div className="App">
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
             <a className="navbar-brand" href="/about">
@@ -89,8 +89,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
