@@ -1,6 +1,6 @@
-.FlexCenter{
+.FlexCenter {
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 
 .App {
@@ -11,8 +11,8 @@
   align-items: center;
 }
 
-.LoginForm{
-  width: 50%;
+.LoginForm {
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
