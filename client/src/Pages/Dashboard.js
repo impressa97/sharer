@@ -1,18 +1,18 @@
-import React from "react";
-import { getUser, removeUserSession } from "../Utils/Common";
+import React, { useContext } from "react";
+import { userContext } from "../UserContext";
 
 function Dashboard(props) {
-  const user = getUser();
-
+  const { userData, SetUserData } = useContext(userContext);
   // handle click event of logout button
   const handleLogout = () => {
-    removeUserSession();
-    props.history.push("/login");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
   };
 
   return (
     <div>
-      Welcome {user.name}!<br />
+      <pre>Welcome {JSON.stringify(userData, null, 2)}!</pre>
+      <br />
       <br />
       <input type="button" onClick={handleLogout} value="Logout" />
     </div>

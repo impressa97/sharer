@@ -1,7 +1,7 @@
 import React from "react";
 
 function Home() {
-  return <div>О нас вам нечего сказать</div>;
+  return <div>Нам вам нечего сказать о нас</div>;
 }
 
 export default Home;

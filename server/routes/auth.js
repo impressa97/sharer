@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const { registerValidation, loginValidation } = require("../validation");
 
 sequelize.sync();
+
 router.post("/register", async (req, res) => {
   const { error } = registerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -31,7 +32,9 @@ router.post("/register", async (req, res) => {
         phone_number: req.body.phone_number,
       })
       .then((response) => {
-        res.send({ user: response.id });
+        res.status(200).send({
+          response: { user: registredUser, msg: "Пользователь создан" },
+        });
       });
   } catch {
     res.status(400).send(err);
@@ -54,7 +57,7 @@ router.post("/login", async (req, res) => {
 
   //CREATE TOKEN
   const token = jwt.sign({ id: loginUser.id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send(token);
+  res.header("auth-token", token).send({ user: loginUser, token: token });
 });
 
 module.exports = router;

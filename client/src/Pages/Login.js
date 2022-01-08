@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { userContext } from "../UserContext";
 import axios from "axios";
 import { setUserSession } from "../Utils/Common";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
@@ -6,8 +7,9 @@ import { Button, FormControl, InputGroup } from "react-bootstrap";
 function Login(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const email = useFormInput("");
-  const password = useFormInput("");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // handle button click of login form
   const handleLogin = () => {
@@ -15,17 +17,32 @@ function Login(props) {
     setLoading(true);
     axios
       .post("http://localhost:3001/api/user/login", {
-        email: email.value,
-        password: password.value,
+        email: email,
+        password: password,
       })
       .then((response) => {
-        setLoading(false);
         setUserSession(response.data.token, response.data.user);
-        props.history.push("/dashboard");
       })
-      .catch((error, val) => {
-        setLoading(false);
-        setError(error.response.data);
+      .catch((error) => {
+        if (!error.response && !error.request) {
+          //display
+        }
+      });
+  };
+
+  const register = () => {
+    axios
+      .post("http://localhost:3001/api/user/register", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        if (!error.response && !error.request) {
+          //display
+        }
       });
   };
 
@@ -35,7 +52,9 @@ function Login(props) {
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
         <FormControl
-          {...email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
           name="Email"
           placeholder="Email"
           aria-label="Email"
@@ -46,7 +65,9 @@ function Login(props) {
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon2">Password</InputGroup.Text>
         <FormControl
-          {...password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
           name="Password"
           placeholder="Password"
           aria-label="Password"
@@ -69,24 +90,12 @@ function Login(props) {
         >
           Login
         </Button>
-        <Button className="m-1" variant="primary">
+        <Button onClick={() => {}} className="m-1" variant="primary">
           Register
         </Button>
       </div>
     </div>
   );
 }
-
-const useFormInput = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-  return {
-    value,
-    onChange: handleChange,
-  };
-};
 
 export default Login;

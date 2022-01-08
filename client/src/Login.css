@@ -3,15 +3,8 @@
   justify-content: center;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-content: space-around;
-  align-items: center;
-}
-
 .LoginForm {
+  margin: 0 auto;
   width: 40%;
   display: flex;
   flex-direction: column;
