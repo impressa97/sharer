@@ -30,22 +30,6 @@ function Login(props) {
       });
   };
 
-  const register = () => {
-    axios
-      .post("http://localhost:3001/api/user/register", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        if (!error.response && !error.request) {
-          //display
-        }
-      });
-  };
-
   return (
     <div className="LoginForm">
       <label>Email</label>
@@ -89,9 +73,6 @@ function Login(props) {
           variant="success"
         >
           Login
-        </Button>
-        <Button onClick={() => {}} className="m-1" variant="primary">
-          Register
         </Button>
       </div>
     </div>

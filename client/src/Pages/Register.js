@@ -1,11 +1,15 @@
+import { FiLogIn, FiMail, FiPhone, FiLock } from "react-icons/fi";
 import React, { useState } from "react";
 import axios from "axios";
 import "../Login.css";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 
 function Register(props) {
+  //Статусы ошибок и Информации
   const [errorStatus, setErrorStatus] = useState(null);
   const [registrationStatus, setRegistrationStatus] = useState(null);
+
+  //Данные формы
   const [login, setLogin] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -34,79 +38,87 @@ function Register(props) {
   };
 
   return (
-    <div className="LoginForm">
-      <label>Login</label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon1">Login</InputGroup.Text>
-        <FormControl
-          onChange={(e) => {
-            setLogin(e.target.value);
-          }}
-          name="login"
-          placeholder="login"
-          aria-label="login"
-          aria-describedby="basic-addon1"
-        />
-      </InputGroup>
-      <label>Email</label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon2">Email</InputGroup.Text>
-        <FormControl
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          name="email"
-          placeholder="email"
-          aria-label="email"
-          aria-describedby="basic-addon2"
-        />
-      </InputGroup>
-      <label>Password</label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon3">Password</InputGroup.Text>
-        <FormControl
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          name="password"
-          placeholder="password"
-          aria-label="password"
-          aria-describedby="basic-addon3"
-        />
-      </InputGroup>
-      <label>Phone</label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon4">Phone</InputGroup.Text>
-        <FormControl
-          onChange={(e) => {
-            setPhone(e.target.value);
-          }}
-          name="phone"
-          placeholder="phone"
-          aria-label="phone"
-          aria-describedby="basic-addon4"
-        />
-      </InputGroup>
-      <div>
-        <Button onClick={register} className="m-3" variant="primary">
-          Зарегестрироваться
-        </Button>
+    <>
+      <h3>Добро пожаловать!</h3>
+      <div className="LoginForm">
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="basic-addon1">
+            <FiLogIn />
+          </InputGroup.Text>
+          <FormControl
+            onChange={(e) => {
+              setLogin(e.target.value);
+            }}
+            name="login"
+            placeholder="Имя пользователя"
+            aria-label="login"
+            aria-describedby="basic-addon1"
+          />
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="basic-addon2">
+            <FiMail />
+          </InputGroup.Text>
+          <FormControl
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            name="email"
+            placeholder="Почта для восстановления пароля"
+            aria-label="email"
+            aria-describedby="basic-addon2"
+          />
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="basic-addon3">
+            <FiLock />
+          </InputGroup.Text>
+          <FormControl
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            aria-label="password"
+            aria-describedby="basic-addon3"
+          />
+        </InputGroup>
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="basic-addon4">
+            <FiPhone />
+          </InputGroup.Text>
+          <FormControl
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
+            name="phone"
+            placeholder="Номер телефона для подтверждения заказов"
+            aria-label="phone"
+            aria-describedby="basic-addon4"
+          />
+        </InputGroup>
+        <div>
+          <Button onClick={register} className="m-3" variant="primary">
+            Зарегистрироваться
+          </Button>
+        </div>
+        {registrationStatus && (
+          <>
+            <div class="alert alert-success" role="alert">
+              {registrationStatus}
+            </div>
+          </>
+        )}
+        {errorStatus && (
+          <>
+            <div class="alert alert-danger" role="alert">
+              {errorStatus}
+            </div>
+          </>
+        )}
       </div>
-      {registrationStatus && (
-        <>
-          <div class="alert alert-success" role="alert">
-            {registrationStatus}
-          </div>
-        </>
-      )}
-      {errorStatus && (
-        <>
-          <div class="alert alert-danger" role="alert">
-            {errorStatus}
-          </div>
-        </>
-      )}
-    </div>
+    </>
   );
 }
 
