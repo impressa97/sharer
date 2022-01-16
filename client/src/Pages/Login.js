@@ -1,15 +1,19 @@
 import React, { useState, useContext } from "react";
-import { userContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUserSession } from "../Utils/Common";
+import { setUser } from "../Utils/Common";
+import { UserContext } from "../UserContext";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 
-function Login(props) {
+function Login() {
+  const [userData, setUserData] = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("7evendays7@gmail.com");
+  const [password, setPassword] = useState("123456");
 
   // handle button click of login form
   const handleLogin = () => {
@@ -21,16 +25,29 @@ function Login(props) {
         password: password,
       })
       .then((response) => {
-        setUserSession(response.data.token, response.data.user);
+        if (response.data) {
+          setUserData({
+            token: response.data.token,
+            user: response.data.user,
+          });
+          navigate("/Pages/Home");
+        } else {
+          alert("Internal error");
+        }
       })
       .catch((error) => {
-        if (!error.response && !error.request) {
-          //display
-        }
+        alert(error.message);
       });
   };
 
-  return (
+  const handleLogout = () => {
+    setUserData({
+      token: null,
+      user: null,
+    });
+  };
+
+  const unlogged = (
     <div className="LoginForm">
       <label>Email</label>
       <InputGroup className="mb-3">
@@ -39,6 +56,7 @@ function Login(props) {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          value={email}
           name="Email"
           placeholder="Email"
           aria-label="Email"
@@ -52,6 +70,7 @@ function Login(props) {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          value={password}
           name="Password"
           placeholder="Password"
           aria-label="Password"
@@ -72,11 +91,23 @@ function Login(props) {
           className="m-1"
           variant="success"
         >
-          Login
+          Войти
         </Button>
       </div>
     </div>
   );
+
+  const logged = (
+    <Button onClick={handleLogout} className="m-1" variant="danger">
+      Выйти
+    </Button>
+  );
+
+  if (userData.user) {
+    return logged;
+  } else {
+    return unlogged;
+  }
 }
 
 export default Login;

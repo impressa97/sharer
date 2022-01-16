@@ -37,7 +37,9 @@ router.post("/register", async (req, res) => {
         });
       });
   } catch {
-    res.status(400).send(err);
+    res.status(400).send({
+      msg: err.body,
+    });
   }
 });
 
