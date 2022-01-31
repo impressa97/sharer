@@ -6,6 +6,8 @@ import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
+
+import { RequireAuth } from "./Hoc/RequireAuth";
 import { Layout } from "./Pages/Layout";
 import { UserDataProvider } from "./UserContext";
 
@@ -16,10 +18,24 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="dashboard"
+                element={
+                  <RequireAuth>
+                    <Dashboard />
+                  </RequireAuth>
+                }
+              />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-              <Route path="dashboard" element={<Dashboard />} />
               <Route path="about" element={<About />} />
             </Route>
           </Routes>

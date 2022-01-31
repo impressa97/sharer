@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
@@ -7,6 +7,7 @@ import { Button, FormControl, InputGroup } from "react-bootstrap";
 function Login() {
   const [userData, setUserData] = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,8 +30,10 @@ function Login() {
             token: response.data.token,
             user: response.data.user,
           });
-          navigate("/Pages/Home");
+          //переадресация на страничку, запросивушую логин
+          navigate(location.state?.from?.pathname || "/");
         } else {
+          setLoading(false);
           alert("Internal error");
         }
       })

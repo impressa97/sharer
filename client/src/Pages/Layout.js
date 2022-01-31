@@ -25,22 +25,22 @@ const Layout = () => {
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/">
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/login">
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/register">
-                    Register
+                    Новости
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/dashboard">
-                    Dashboard
+                    Проверка оборудования
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/login">
+                    Войти
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/register">
+                    Регистрация
                   </NavLink>
                 </li>
               </ul>
@@ -54,25 +54,25 @@ const Layout = () => {
         <Outlet />
       </main>
 
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <div class="col-md-4 d-flex align-items-center">
-            <span class="text-muted">© 2022 Макаров А.С</span>
+      <div className="container">
+        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div className="col-md-4 d-flex align-items-center">
+            <span className="text-muted">© 2022 Макаров А.С</span>
           </div>
 
-          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="text-muted" href="#">
+          <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li className="ms-3">
+              <a className="text-muted" href="#">
                 <FiTwitter />
               </a>
             </li>
-            <li class="ms-3">
-              <a class="text-muted" href="#">
+            <li className="ms-3">
+              <a className="text-muted" href="#">
                 <FiInstagram />
               </a>
             </li>
-            <li class="ms-3">
-              <a class="text-muted" href="#">
+            <li className="ms-3">
+              <a className="text-muted" href="#">
                 <FiFacebook />
               </a>
             </li>
