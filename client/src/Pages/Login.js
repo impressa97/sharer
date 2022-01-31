@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUser } from "../Utils/Common";
 import { UserContext } from "../UserContext";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 
@@ -84,13 +83,7 @@ function Login() {
         </>
       )}
       <div>
-        <Button
-          value={loading ? "Loading..." : "Login"}
-          onClick={handleLogin}
-          disabled={loading}
-          className="m-1"
-          variant="success"
-        >
+        <Button value={loading ? "Loading..." : "Login"} onClick={handleLogin} disabled={loading} className="m-1" variant="success">
           Войти
         </Button>
       </div>
