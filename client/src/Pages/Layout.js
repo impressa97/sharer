@@ -1,5 +1,6 @@
 import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 import { NavLink, Outlet } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const Layout = () => {
   return (
@@ -10,7 +11,7 @@ const Layout = () => {
             <NavLink className="navbar-brand" to="/about">
               WinterTake
             </NavLink>
-            <button
+            <Button
               className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
@@ -20,7 +21,7 @@ const Layout = () => {
               aria-label="Toggle navigation"
             >
               <span className="navbar-toggler-icon"></span>
-            </button>
+            </Button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
@@ -62,19 +63,19 @@ const Layout = () => {
 
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
-              <a className="text-muted" href="#">
+              <Button variant="text-muted" to="#">
                 <FiTwitter />
-              </a>
+              </Button>
             </li>
             <li className="ms-3">
-              <a className="text-muted" href="#">
+              <Button variant="text-muted" to="#">
                 <FiInstagram />
-              </a>
+              </Button>
             </li>
             <li className="ms-3">
-              <a className="text-muted" href="#">
+              <Button variant="text-muted" to="#">
                 <FiFacebook />
-              </a>
+              </Button>
             </li>
           </ul>
         </footer>

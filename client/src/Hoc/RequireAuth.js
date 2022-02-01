@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../UserContext";
 
 const RequireAuth = ({ children }) => {
-  const [userData, setUserData] = useContext(UserContext);
+  const userData = useContext(UserContext);
   const location = useLocation();
 
   if (userData.user === null) {

@@ -5,6 +5,8 @@ const app = express();
 const cors = require("cors");
 const config = require("./config");
 
+const sequelize = require("./db/db.js");
+sequelize.sync();
 //import routes
 const rentalRoute = require("./routes/rental");
 const verifyRoute = require("./routes/verify");

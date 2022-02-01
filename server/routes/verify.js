@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 
 const user = require("../models/user.js");
-const sequelize = require("../db/db");
 
 router.get("/", async (req, res) => {
   // check header or url parameters or post parameters for token

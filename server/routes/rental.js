@@ -1,16 +1,28 @@
 const router = require("express").Router();
 
-const user = require("../models/user.js");
-const sequelize = require("../db/db");
+const goods = require("../models/goods.js");
 
-sequelize.sync();
+const { Op } = require("sequelize");
 
-router.get("/get-equipment", async (req, res) => {
-  const page = req.page;
-  console.log(page);
-  res.status(200).send({
-    response: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  });
+router.get("/get-goods", async (req, res) => {
+  const page = req.query.page * 3 * 3;
+  var goodsArray = [];
+  try {
+    goodsArray = await goods.findAll({
+      where: {
+        id: {
+          [Op.lt]: page,
+        },
+        title: {
+          [Op.substring]: req.query.q || " ",
+        },
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  console.log(goodsArray);
+  res.status(200).send(goodsArray);
 });
 
 module.exports = router;

@@ -27,4 +27,5 @@ const orders = sequelize.define("orders", {
     type: Sequelize.DATE,
   },
 });
+
 module.exports = orders;

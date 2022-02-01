@@ -1,13 +1,9 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-
 const user = require("../models/user.js");
-const sequelize = require("../db/db");
 
 const jwt = require("jsonwebtoken");
 const { registerValidation, loginValidation } = require("../validation");
-
-sequelize.sync();
 
 router.post("/register", async (req, res) => {
   const { error } = registerValidation(req.body);
@@ -17,8 +13,7 @@ router.post("/register", async (req, res) => {
     where: { email: req.body.email },
   });
 
-  if (registredUser !== null)
-    return res.status(400).send("Email is already exists");
+  if (registredUser !== null) return res.status(400).send("Email is already exists");
 
   //HASH PAWWSORD
   const salt = await bcrypt.genSalt(10);
@@ -51,8 +46,7 @@ router.post("/login", async (req, res) => {
     where: { email: req.body.email },
   });
 
-  if (loginUser === null)
-    return res.status(400).send("Email or Password does not exist");
+  if (loginUser === null) return res.status(400).send("Email or Password does not exist");
 
   const validPass = await bcrypt.compare(req.body.password, loginUser.password);
   if (!validPass) return res.status(400).send("Invalid password");
