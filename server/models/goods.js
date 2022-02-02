@@ -24,6 +24,14 @@ const goods = sequelize.define("goods", {
     type: Sequelize.STRING(400),
     allowNull: false,
   },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
 });
 
 module.exports = goods;

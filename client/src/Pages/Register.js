@@ -1,11 +1,13 @@
 import { FiLogIn, FiMail, FiPhone, FiLock } from "react-icons/fi";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Login.css";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 
 function Register(props) {
   //Статусы ошибок и Информации
+  const navigate = useNavigate();
   const [errorStatus, setErrorStatus] = useState(null);
   const [registrationStatus, setRegistrationStatus] = useState(null);
 
@@ -24,12 +26,11 @@ function Register(props) {
         password: password,
       })
       .then((response) => {
-        debugger;
         setErrorStatus(null);
         setRegistrationStatus(response.data.response.msg);
+        navigate("/login");
       })
       .catch((error) => {
-        debugger;
         setErrorStatus(error.response.data);
         if (!error.response && !error.request) {
           //display
@@ -105,14 +106,14 @@ function Register(props) {
         </div>
         {registrationStatus && (
           <>
-            <div class="alert alert-success" role="alert">
+            <div className="alert alert-success" role="alert">
               {registrationStatus}
             </div>
           </>
         )}
         {errorStatus && (
           <>
-            <div class="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert">
               {errorStatus}
             </div>
           </>
