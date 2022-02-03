@@ -94,7 +94,7 @@ function Register(props) {
               setPhone(e.target.value);
             }}
             name="phone"
-            placeholder="Номер телефона для подтверждения заказов"
+            placeholder="Номер телефона"
             aria-label="phone"
             aria-describedby="basic-addon4"
           />
