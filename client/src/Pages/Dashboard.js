@@ -20,12 +20,12 @@ function Dashboard(props) {
       <Container>
         <Row>
           <Col className="text-center">
-            <InputGroup size="lg" className="mt-3">
+            <InputGroup className="mt-3">
               <InputGroup.Text id="basic-addon1">
                 <FiTool />
               </InputGroup.Text>
               <FormControl placeholder="Поиск оборудования" onChange={handleSearch} />
-              <Link to="/addEquipment" className="btn btn-success">
+              <Link to="/AddGoods" className="btn btn-success">
                 Добавить новое
                 <FiPlus />
               </Link>

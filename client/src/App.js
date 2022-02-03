@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./Pages/Login";
@@ -6,7 +6,7 @@ import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
-import AddEquipment from "./Pages/AddEquipment";
+import AddGoods from "./Pages/AddGoods";
 
 import { RequireAuth } from "./Hoc/RequireAuth";
 import { Layout } from "./Pages/Layout";
@@ -39,10 +39,10 @@ function App() {
               <Route path="register" element={<Register />} />
               <Route path="about" element={<About />} />
               <Route
-                path="AddEquipment"
+                path="AddGoods"
                 element={
                   <RequireAuth>
-                    <AddEquipment />
+                    <AddGoods />
                   </RequireAuth>
                 }
               />
