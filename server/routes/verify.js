@@ -3,10 +3,9 @@ const router = require("express").Router();
 
 const user = require("../models/user.js");
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
-
   if (!token) {
     return res.status(400).json({
       error: true,

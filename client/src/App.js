@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./Pages/Login";
@@ -21,7 +21,7 @@ function App() {
               <Route
                 index
                 element={
-                  <RequireAuth>
+                  <RequireAuth props={{ a: 1 }}>
                     <Home />
                   </RequireAuth>
                 }
@@ -29,7 +29,7 @@ function App() {
               <Route
                 path="dashboard"
                 element={
-                  <RequireAuth>
+                  <RequireAuth props={{ a: 1 }}>
                     <Dashboard />
                   </RequireAuth>
                 }
