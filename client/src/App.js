@@ -6,6 +6,7 @@ import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
+import AddEquipment from "./Pages/AddEquipment";
 
 import { RequireAuth } from "./Hoc/RequireAuth";
 import { Layout } from "./Pages/Layout";
@@ -21,7 +22,7 @@ function App() {
               <Route
                 index
                 element={
-                  <RequireAuth props={{ a: 1 }}>
+                  <RequireAuth>
                     <Home />
                   </RequireAuth>
                 }
@@ -29,7 +30,7 @@ function App() {
               <Route
                 path="dashboard"
                 element={
-                  <RequireAuth props={{ a: 1 }}>
+                  <RequireAuth>
                     <Dashboard />
                   </RequireAuth>
                 }
@@ -37,6 +38,14 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="about" element={<About />} />
+              <Route
+                path="AddEquipment"
+                element={
+                  <RequireAuth>
+                    <AddEquipment />
+                  </RequireAuth>
+                }
+              />
             </Route>
           </Routes>
         </div>

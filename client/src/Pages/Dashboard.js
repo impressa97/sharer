@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FormControl, InputGroup, Container, Row, Col, Alert } from "react-bootstrap";
 import useGoodsSearch from "../Utils/useGoodsSearch";
 import GoodsTile from "../Utils/GoodsTile";
-import { FiTool } from "react-icons/fi";
+import { FiPlus, FiTool } from "react-icons/fi";
 
 function Dashboard(props) {
   const [query, setQuery] = useState("");
@@ -19,11 +20,15 @@ function Dashboard(props) {
       <Container>
         <Row>
           <Col className="text-center">
-            <InputGroup className="mt-3">
+            <InputGroup size="lg" className="mt-3">
               <InputGroup.Text id="basic-addon1">
                 <FiTool />
               </InputGroup.Text>
               <FormControl placeholder="Поиск оборудования" onChange={handleSearch} />
+              <Link to="/addEquipment" className="btn btn-success">
+                Добавить новое
+                <FiPlus />
+              </Link>
             </InputGroup>
           </Col>
         </Row>

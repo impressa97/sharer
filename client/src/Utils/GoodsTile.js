@@ -1,36 +1,17 @@
-import { Row, Col, Form, Button } from "react-bootstrap";
-import { FiBox, FiRefreshCcw, FiTrash } from "react-icons/fi";
+import { Col, Card } from "react-bootstrap";
+import StoryTile from "./StoryTile";
 
 function GoodsTile(props) {
   return (
-    <Col xs={4} className="mt-4">
-      <div className="card">
-        {/* <img src="..." class="card-img-top" alt="..."> */}
-        <div className="card-body">
+    <Col xs={6} className="mt-4">
+      <Card>
+        <Card.Img variant="top" src={"http://localhost:3001/" + props.image_link} />
+        <Card.Body>
           <h5 className="card-title">{props.title}</h5>
-          <textarea className="form-control" id="exampleFormControlTextarea1" rows="8" defaultValue={props.note}></textarea>
-          <Row className="p-2">
-            <Col xs={4} className="mx-auto">
-              <Button variant="primary">
-                <FiRefreshCcw />
-              </Button>
-            </Col>
-            <Col xs={4} className="mx-auto">
-              <Button variant="danger">
-                <FiTrash />
-              </Button>
-            </Col>
-          </Row>
-          <Row className="p-2">
-            <Col xs={12} className="mx-auto">
-              <Form.Label>
-                <FiBox /> Визуальное состояние:
-              </Form.Label>
-              <Form.Range />
-            </Col>
-          </Row>
-        </div>
-      </div>
+          {props.note}
+          <StoryTile />
+        </Card.Body>
+      </Card>
     </Col>
   );
 }
