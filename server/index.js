@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+var bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -13,6 +14,10 @@ const goodsRoute = require("./routes/goods");
 const verifyRoute = require("./routes/verify");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 app.use(express.json());

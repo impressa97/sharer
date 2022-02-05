@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
       });
     }
     // get basic user details
-    return res.json({ user: registredUser, token });
+    res.status(200).json({ user: registredUser, token });
   });
 });
 

@@ -1,27 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { Form, InputGroup, Container, Row, Col, Alert } from "react-bootstrap";
+import { UserContext } from "../UserContext";
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 
 function AddGoods() {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [note, setnote] = useState("");
-  const [image, setImage] = useState("");
+  const [title, setTitle] = useState("1");
+  const [price, setPrice] = useState("2");
+  const [note, setNote] = useState("3");
+  const [image, setImage] = useState(null);
+  const [userData, setUserData] = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(title);
-  }, [title]);
   const handleInsert = () => {
+    let formData = new FormData();
+    if (image) {
+      formData.append("image", image);
+      formData.append("image_name", image.name);
+    } else {
+      formData.append("image", null);
+      formData.append("image_name", null);
+      alert("Добавьте картинку");
+      return false;
+    }
+    formData.append("note", note);
+    formData.append("price", price);
+    formData.append("title", title);
     axios
-      .post("http://localhost:3001/api/user/login", {})
+      .post("http://localhost:3001/api/goods/insert-goods", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "auth-token": userData.token,
+        },
+      })
       .then((response) => {
-        if (response.data) {
-        } else {
+        if (!response.data) {
           alert("Internal error");
         }
+        setTitle("");
+        setPrice("");
+        setNote("");
+        setImage("");
       })
       .catch((error) => {
-        alert(error.response.data);
+        alert(error.message);
+      })
+      .finally((e) => {
+        console.log("finnaly");
       });
   };
 
@@ -32,20 +55,25 @@ function AddGoods() {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Наименование</Form.Label>
-              <Form.Control type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Наименование" />
+              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Наименование" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Цена</Form.Label>
-              <Form.Control type="number" placeholder="Цена" />
+              <Form.Control type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Цена" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Описание</Form.Label>
-              <Form.Control type="textarea" rows={3} />
+              <Form.Control as="textarea" value={note} onChange={(e) => setNote(e.target.value)} rows={3} />
             </Form.Group>
-            <Form.Group controlId="formFile" className="mb-3">
+            <Form.Group controlId="formFile" accept=".jpeg" value={image} onChange={(e) => setImage(e.target.files[0])} className="mb-3">
               <Form.Label>Изображение</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" required />
             </Form.Group>
+            <>
+              <Button variant="success" onClick={handleInsert}>
+                Добавить
+              </Button>
+            </>
           </Form>
         </Col>
       </Row>

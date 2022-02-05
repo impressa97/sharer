@@ -9,9 +9,9 @@ export default function useGoodsSearch(query, pageNumber) {
   const [userData, setUserData] = useContext(UserContext);
   const [hasMore, setHasMore] = useState(false);
 
-  useEffect(() => {
-    setGoods([]);
-  }, [query]);
+  //useEffect(() => {
+  //  setGoods([]);
+  //}, [query]);
 
   useEffect(() => {
     setLoading(true);
@@ -30,7 +30,7 @@ export default function useGoodsSearch(query, pageNumber) {
       })
       .then((res) => {
         setGoods((prevGoods) => {
-          return [...new Set([...prevGoods, ...res.data])];
+          return res.data; //[...new Set([...prevGoods, ...res.data])];
         });
         setHasMore(res.data.length > 0);
         setLoading(false);
@@ -38,9 +38,10 @@ export default function useGoodsSearch(query, pageNumber) {
       .catch((e) => {
         setLoading(false);
         setError(true);
-        if (axios.isCancel(e)) return;
+        //if (axios.isCancel(e)) return;
       });
     return () => cancel();
   }, [query, pageNumber, userData]);
-  return { loading, error, goods, hasMore };
+
+  return { loading, error, goods, setGoods, hasMore };
 }
