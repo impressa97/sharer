@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const user = require("../models/user.js");
+const users = require("../models/users.js");
 
 const jwt = require("jsonwebtoken");
 const { registerValidation, loginValidation } = require("../validation");
@@ -19,7 +19,7 @@ router.post("/register", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
   try {
-    user
+    users
       .create({
         login: req.body.login,
         password: hashPassword,
@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const loginUser = await user.findOne({
+  const loginUser = await users.findOne({
     where: { email: req.body.email },
   });
 

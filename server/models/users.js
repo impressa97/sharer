@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db/db");
 
-const user = sequelize.define(
-  "user",
+const users = sequelize.define(
+  "users",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -26,9 +26,13 @@ const user = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    user_role_id: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+    },
   },
   {
     timestamps: false,
   }
 );
-module.exports = user;
+module.exports = users;
