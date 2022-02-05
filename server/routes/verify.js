@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 
-const user = require("../models/user.js");
+const users = require("../models/users.js");
 
 router.post("/", async (req, res) => {
   // check header or url parameters or post parameters for token
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
         message: "Invalid token.",
       });
 
-    const registredUser = await user.findOne({
+    const registredUser = await users.findOne({
       where: { id: userGET.id },
     });
 
