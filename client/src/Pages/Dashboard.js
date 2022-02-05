@@ -43,11 +43,11 @@ function Dashboard(props) {
           </Col>
         </Row>
       </Container>
-      <Container>
+      <Row>
         {goods.map((equipment) => {
           return <GoodsTile cb={unmountTile} key={equipment.id} {...equipment} />;
         })}
-      </Container>
+      </Row>
       {loading && (
         <Alert className="mt-3" variant="primary">
           Загрузка...

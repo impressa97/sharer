@@ -1,11 +1,12 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import StoryTile from "./StoryTile";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 
 function GoodsTile(props) {
   const [userData, setUserData] = useContext(UserContext);
+  const [storyTile, setstoryTile] = useState();
 
   function RemoveGoodsInstane(id) {
     axios
@@ -32,32 +33,49 @@ function GoodsTile(props) {
       });
   }
 
+  function getStoryTiles() {
+    axios
+      .post(
+        "http://localhost:3001/api/goods/delete-goods",
+        {},
+        {
+          headers: {
+            "auth-token": userData.token,
+          },
+        }
+      )
+      .then((response) => {})
+      .catch((error) => {});
+  }
+
+  useState(() => {
+    getStoryTiles();
+  }, [storyTile]);
+
   return (
-    <Row>
-      <Col xs={6} className="mt-4">
-        <Card>
-          <Card.Img variant="top" src={"http://localhost:3001/" + props.image_link} />
-          <Card.Body>
-            <Row>
-              <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
-                <h5 className="card-title">{props.title}</h5>
-              </Col>
-            </Row>
-            <Row>
-              <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">{props.note}</Col>
-            </Row>
-            <Row>
-              <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
-                <Button variant="danger" onClick={(e) => RemoveGoodsInstane(props.id)}>
-                  Удалить
-                </Button>
-              </Col>
-            </Row>
-            <StoryTile />
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
+    <Col xs={6} className="mt-4">
+      <Card>
+        <Card.Img variant="top" src={"http://localhost:3001/" + props.image_link} />
+        <Card.Body>
+          <Row>
+            <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
+              <h5 className="card-title">{props.title}</h5>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">{props.note}</Col>
+          </Row>
+          <Row>
+            <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
+              <Button variant="danger" onClick={(e) => RemoveGoodsInstane(props.id)}>
+                Удалить
+              </Button>
+            </Col>
+          </Row>
+          <StoryTile />
+        </Card.Body>
+      </Card>
+    </Col>
   );
 }
 
