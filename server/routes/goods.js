@@ -1,8 +1,12 @@
 const router = require("express").Router();
+const { Op } = require("sequelize");
 const image_folder = "./documents/images/";
+const verify = require("./verifyToken");
+const goods = require("../models/goods.js");
+const goods_story = require("../models/goods_story.js");
+const users = require("../models/users.js");
 
 const multer = require("multer");
-
 var storage = multer.diskStorage({
   destination: image_folder,
   filename: function (req, file, cb) {
@@ -14,11 +18,6 @@ var storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
-const verify = require("./verifyToken");
-const goods = require("../models/goods.js");
-
-const { Op } = require("sequelize");
 
 router.get("/get-goods", verify, async (req, res) => {
   const page = req.query.page * 3 * 100;
@@ -65,6 +64,37 @@ router.post("/insert-goods", [verify, upload.single("image")], async (req, res) 
     return;
   }
   res.status(200).send(true);
+});
+
+router.post("/get-goods-story", verify, async (req, res) => {
+  var goodsStoryArray = [];
+  if (req.body.good_id)
+    try {
+      goodsStoryArray = await goods_story.findAll({
+        where: {
+          goods_id: {
+            [Op.eq]: req.body.good_id,
+          },
+        },
+        // include: [
+        //   {
+        //     model: users,
+        //     as: "user_consumerAlias",
+        //     required: false,
+        //   },
+        //   {
+        //     model: users,
+        //     as: "user_producerAlias",
+        //     required: false,
+        //   },
+        // ],
+      });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).send({ error: true });
+    }
+  console.log(goodsStoryArray);
+  return res.status(200).send({ error: false, goodsStoryArray });
 });
 
 module.exports = router;

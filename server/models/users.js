@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db/db");
+const user_roles = require("./user_roles.js");
 
 const users = sequelize.define(
   "users",
@@ -35,4 +36,7 @@ const users = sequelize.define(
     timestamps: false,
   }
 );
+
+users.hasOne(user_roles);
+
 module.exports = users;

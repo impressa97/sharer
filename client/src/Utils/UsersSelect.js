@@ -1,15 +1,15 @@
 import { Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function UsersSelect(props) {
-  const [options, SetOptions] = useState([]);
-  useEffect(() => {
-    SetOptions([<option value="0">Ильдар</option>, <option value="1">Тагил</option>]);
-  }, [options]);
+  //useEffect(() => {
+  //  //SetOptions();
+  //}, [options]);
 
   return (
-    <Form.Select id="reason" disabled={props?.disbled}>
-      {options}
+    <Form.Select id="reason" disabled={props?.disabled}>
+      {/* {props} */}
     </Form.Select>
   );
 }

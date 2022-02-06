@@ -1,12 +1,13 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import StoryTile from "./StoryTile";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 
 function GoodsTile(props) {
   const [userData, setUserData] = useContext(UserContext);
-  const [storyTile, setstoryTile] = useState();
+  const [storyTile, setstoryTile] = useState([]);
+  const [blocked, setBlocked] = useState(false);
 
   function RemoveGoodsInstane(id) {
     axios
@@ -36,20 +37,30 @@ function GoodsTile(props) {
   function getStoryTiles() {
     axios
       .post(
-        "http://localhost:3001/api/goods/delete-goods",
-        {},
+        "http://localhost:3001/api/goods/get-goods-story",
+        { good_id: props.id },
         {
           headers: {
             "auth-token": userData.token,
           },
         }
       )
-      .then((response) => {})
-      .catch((error) => {});
+      .then((response) => {
+        setBlocked(true);
+        if (!response.data.error && response.data.goodsStoryArray.length) {
+          setstoryTile(response.data.goodsStoryArray);
+        }
+      })
+      .catch((error) => {
+        setBlocked(true);
+      });
   }
 
-  useState(() => {
-    getStoryTiles();
+  useEffect(() => {
+    if (!blocked) {
+      getStoryTiles();
+    }
+    setBlocked(false);
   }, [storyTile]);
 
   return (
@@ -72,7 +83,10 @@ function GoodsTile(props) {
               </Button>
             </Col>
           </Row>
-          <StoryTile />
+          <StoryTile userOptions={props?.userOptions} />
+          {storyTile.map((value) => {
+            return <StoryTile userOptions={props?.userOptions} storyTile={value} />;
+          })}
         </Card.Body>
       </Card>
     </Col>

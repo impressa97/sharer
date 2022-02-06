@@ -2,18 +2,18 @@ require("dotenv").config();
 
 var bodyParser = require("body-parser");
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const app = express();
 const config = require("./config");
 
 const sequelize = require("./db/db.js");
-sequelize.sync();
 
 //import routes
 const goodsRoute = require("./routes/goods");
 const verifyRoute = require("./routes/verify");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+sequelize.sync();
 
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded());

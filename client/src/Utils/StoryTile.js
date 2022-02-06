@@ -1,21 +1,21 @@
 import { Row, Col, Form, Card, Button } from "react-bootstrap";
-import { FiBox } from "react-icons/fi";
 import PlaceSelect from "./PlaceSelect";
 import ReasonSelect from "./ReasonSelect";
 import UsersSelect from "./UsersSelect";
 
 function StoryTile(props) {
-  let date;
-  let fio;
   let buttonAdd;
-  if (!Object.keys(props).length) {
-    fio = <UsersSelect />;
-    date = <Form.Control id="date" type="date" defaultValue={new Date().toISOString().slice(0, 10)}></Form.Control>;
+  let date;
+  let disabled;
+
+  if (props?.storyTile === undefined) {
     buttonAdd = <Button variant="success">Добавить</Button>;
+    date = <Form.Control id="date" type="date" defaultValue={new Date().toISOString().slice(0, 10)}></Form.Control>;
+    disabled = false;
   } else {
-    fio = props.fio;
-    date = props.date;
     buttonAdd = "";
+    date = props.date;
+    disabled = true;
   }
 
   return (
@@ -33,21 +33,31 @@ function StoryTile(props) {
                 <Form.Label>Состояние:</Form.Label>
               </Col>
               <Col className="col-8 d-flex justify-content-center align-items-center">
-                <Form.Range disabled={props?.disbled} props={props?.visualPoints} />
+                <Form.Range disabled={disabled} defaultValue={props?.hp} />
+              </Col>
+            </Row>
+            <Row className="p-2">
+              <Col className="col-4 d-flex justify-content-end align-items-center">
+                <Form.Label>Выдавший:</Form.Label>
+              </Col>
+              <Col className="col-8 d-flex justify-content-center align-items-center">
+                <UsersSelect {...{ disabled, user_producer: props?.user_producer_id, userOptions: props?.userOptions }} />
               </Col>
             </Row>
             <Row className="p-2">
               <Col className="col-4 d-flex justify-content-end align-items-center">
                 <Form.Label>Получатель:</Form.Label>
               </Col>
-              <Col className="col-8 d-flex justify-content-center align-items-center">{fio}</Col>
+              <Col className="col-8 d-flex justify-content-center align-items-center">
+                <UsersSelect {...{ disabled, user_producer_id: props?.user_consumer_id, userOptions: props?.userOptions }} />
+              </Col>
             </Row>
             <Row className="p-2">
               <Col className="col-4 d-flex justify-content-end align-items-center">
                 <Form.Label> Нахождение:</Form.Label>
               </Col>
               <Col className="col-8 d-flex justify-content-center align-items-center">
-                <PlaceSelect props={{ place: props?.place, disbled: props?.disbled }} />
+                <PlaceSelect {...{ disabled, user_producer_id: props?.place }} />
               </Col>
             </Row>
             <Row className="p-2">
@@ -55,7 +65,7 @@ function StoryTile(props) {
                 <Form.Label> Цель:</Form.Label>
               </Col>
               <Col className="col-8 d-flex justify-content-center align-items-center">
-                <ReasonSelect props={{ target: props?.target, disbled: props?.disbled }} />
+                <ReasonSelect {...{ disabled, target: props?.target }} />
               </Col>
             </Row>
           </Card.Text>

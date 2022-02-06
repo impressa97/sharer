@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 import { FormControl, InputGroup, Container, Row, Col, Alert } from "react-bootstrap";
@@ -10,7 +10,19 @@ import { FiPlus, FiTool } from "react-icons/fi";
 function Dashboard(props) {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const [userOptions, userSetOptions] = useState([]);
   const { loading, error, goods, setGoods, hasMore } = useGoodsSearch(query, pageNumber);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/api/user/get-all-users")
+      .then((response) => {
+        userSetOptions(response.data);
+      })
+      .catch((error) => {
+        alert(error.data);
+      });
+  }, []);
 
   function unmountTile(id) {
     setGoods(
@@ -45,7 +57,7 @@ function Dashboard(props) {
       </Container>
       <Row>
         {goods.map((equipment) => {
-          return <GoodsTile cb={unmountTile} key={equipment.id} {...equipment} />;
+          return <GoodsTile userOptions={userOptions} cb={unmountTile} key={equipment.id} {...equipment} />;
         })}
       </Row>
       {loading && (
