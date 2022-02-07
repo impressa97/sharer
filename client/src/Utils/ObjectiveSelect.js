@@ -1,11 +1,10 @@
 import { Form } from "react-bootstrap";
 
-function UsersSelect(props) {
+function ObjectiveSelect(props) {
   let defaultValue = undefined;
-  if (props?.activeUserId) {
-    defaultValue = props?.activeUserId;
+  if (props?.activeObjective) {
+    defaultValue = props?.activeObjective;
   }
-
   return (
     <Form.Select
       disabled={props?.disabled}
@@ -14,14 +13,14 @@ function UsersSelect(props) {
     >
       {!defaultValue && (
         <option disabled selected value>
-          -- Выберете Пользователя--
+          -- Выберете Действие --
         </option>
       )}
-      {props?.userOptions.map((val) => {
-        return <option value={val.id}>{val.login}</option>;
+      {props?.objectiveOptions.map((val) => {
+        return <option value={val.id}>{val.title}</option>;
       })}
     </Form.Select>
   );
 }
 
-export default UsersSelect;
+export default ObjectiveSelect;

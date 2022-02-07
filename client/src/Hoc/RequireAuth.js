@@ -30,7 +30,7 @@ const RequireAuth = ({ children }) => {
   }, []);
 
   if (auth === null) {
-    return <p>Верификация токена...</p>;
+    return <div>Верификация токена...</div>;
   }
 
   if (auth === true) {

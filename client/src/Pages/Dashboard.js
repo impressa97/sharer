@@ -11,13 +11,25 @@ function Dashboard(props) {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [userOptions, userSetOptions] = useState([]);
+  const [objectiveOptions, setObjectiveOptions] = useState([]);
   const { loading, error, goods, setGoods, hasMore } = useGoodsSearch(query, pageNumber);
 
   useEffect(() => {
+    //userOptions
     axios
       .post("http://localhost:3001/api/user/get-all-users")
       .then((response) => {
         userSetOptions(response.data);
+      })
+      .catch((error) => {
+        alert(error.data);
+      });
+
+    //objectiveOptions
+    axios
+      .post("http://localhost:3001/api/objectives/get-all")
+      .then((response) => {
+        setObjectiveOptions(response.data);
       })
       .catch((error) => {
         alert(error.data);
@@ -57,7 +69,7 @@ function Dashboard(props) {
       </Container>
       <Row>
         {goods.map((equipment) => {
-          return <GoodsTile userOptions={userOptions} cb={unmountTile} key={equipment.id} {...equipment} />;
+          return <GoodsTile cb={unmountTile} userOptions={userOptions} objectiveOptions={objectiveOptions} key={equipment.id} {...equipment} />;
         })}
       </Row>
       {loading && (

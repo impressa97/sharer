@@ -10,6 +10,7 @@ const sequelize = require("./db/db.js");
 
 //import routes
 const goodsRoute = require("./routes/goods");
+const objectivesRoute = require("./routes/objectives");
 const verifyRoute = require("./routes/verify");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
@@ -26,6 +27,7 @@ app.use("/api/user", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/verify", verifyRoute);
 app.use("/api/goods", goodsRoute);
+app.use("/api/objectives", objectivesRoute);
 
 app.use("/images", express.static("documents/images"));
 

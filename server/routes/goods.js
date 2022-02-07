@@ -17,6 +17,7 @@ var storage = multer.diskStorage({
     next(err);
   },
 });
+
 const upload = multer({ storage: storage });
 
 router.get("/get-goods", verify, async (req, res) => {
@@ -55,16 +56,25 @@ router.post("/delete-goods", verify, async (req, res) => {
   else res.status(400).send({ success: false });
 });
 
-router.post("/insert-goods", [verify, upload.single("image")], async (req, res) => {
-  let goods_instance = null;
-  try {
-    goods_instance = await goods.create({ price: req.body.price, note: req.body.note, title: req.body.title, image_link: "images/" + req.body.image_name });
-  } catch (e) {
-    res.status(400).send(e);
-    return;
+router.post(
+  "/insert-goods",
+  [verify, upload.single("image")],
+  async (req, res) => {
+    let goods_instance = null;
+    try {
+      goods_instance = await goods.create({
+        price: req.body.price,
+        note: req.body.note,
+        title: req.body.title,
+        image_link: "images/" + req.body.image_name,
+      });
+    } catch (e) {
+      res.status(400).send(e);
+      return;
+    }
+    res.status(200).send(true);
   }
-  res.status(200).send(true);
-});
+);
 
 router.post("/get-goods-story", verify, async (req, res) => {
   var goodsStoryArray = [];
@@ -76,18 +86,7 @@ router.post("/get-goods-story", verify, async (req, res) => {
             [Op.eq]: req.body.good_id,
           },
         },
-        // include: [
-        //   {
-        //     model: users,
-        //     as: "user_consumerAlias",
-        //     required: false,
-        //   },
-        //   {
-        //     model: users,
-        //     as: "user_producerAlias",
-        //     required: false,
-        //   },
-        // ],
+        order: [["date", "DESC"]],
       });
     } catch (e) {
       console.log(e);
@@ -97,4 +96,20 @@ router.post("/get-goods-story", verify, async (req, res) => {
   return res.status(200).send({ error: false, goodsStoryArray });
 });
 
+router.post("/insert-goods-story", verify, async (req, res) => {
+  let goods_story_instance;
+  try {
+    goods_story_instance = await goods_story.create({
+      user_producer_id: req.body.user_producer_id,
+      user_consumer_id: req.body.user_consumer_id,
+      goods_id: req.body.goods_id,
+      hp: req.body.hp,
+      objective_id: req.body.objective_id,
+      note: req.body.note,
+    });
+  } catch (e) {
+    return res.status(400).send(e);
+  }
+  return res.status(200).send(goods_story_instance);
+});
 module.exports = router;

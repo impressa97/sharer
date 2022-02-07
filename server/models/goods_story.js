@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db/db");
+const objectives = require("./objectives.js");
 const users = require("./users.js");
 
 const goods_story = sequelize.define(
@@ -47,6 +48,7 @@ const goods_story = sequelize.define(
   }
 );
 
+goods_story.belongsTo(objectives, { as: "objective_Alias", foreignKey: "objective_id" });
 goods_story.belongsTo(users, { as: "user_producerAlias", foreignKey: "user_producer_id" });
 goods_story.belongsTo(users, { as: "user_consumerAlias", foreignKey: "user_consumer_id" });
 

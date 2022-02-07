@@ -66,7 +66,10 @@ function GoodsTile(props) {
   return (
     <Col xs={6} className="mt-4">
       <Card>
-        <Card.Img variant="top" src={"http://localhost:3001/" + props.image_link} />
+        <Card.Img
+          variant="top"
+          src={"http://localhost:3001/" + props.image_link}
+        />
         <Card.Body>
           <Row>
             <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
@@ -74,18 +77,34 @@ function GoodsTile(props) {
             </Col>
           </Row>
           <Row>
-            <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">{props.note}</Col>
+            <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
+              {props.note}
+            </Col>
           </Row>
           <Row>
             <Col className="mt-3 col-16 d-flex justify-content-center align-items-center">
-              <Button variant="danger" onClick={(e) => RemoveGoodsInstane(props.id)}>
+              <Button
+                variant="danger"
+                onClick={(e) => RemoveGoodsInstane(props.id)}
+              >
                 Удалить
               </Button>
             </Col>
           </Row>
-          <StoryTile userOptions={props?.userOptions} />
+          <StoryTile
+            goodsId={props.id}
+            userOptions={props?.userOptions}
+            objectiveOptions={props?.objectiveOptions}
+          />
           {storyTile.map((value) => {
-            return <StoryTile userOptions={props?.userOptions} storyTile={value} />;
+            return (
+              <StoryTile
+                goodsId={props.id}
+                userOptions={props?.userOptions}
+                storyTile={value}
+                objectiveOptions={props?.objectiveOptions}
+              />
+            );
           })}
         </Card.Body>
       </Card>
