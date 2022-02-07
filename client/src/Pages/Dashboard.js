@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { FormControl, InputGroup, Container, Row, Col, Alert } from "react-bootstrap";
+import {
+  FormControl,
+  InputGroup,
+  Container,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import useGoodsSearch from "../Utils/useGoodsSearch";
 import GoodsTile from "../Utils/GoodsTile";
 import { FiPlus, FiTool } from "react-icons/fi";
@@ -12,7 +19,10 @@ function Dashboard(props) {
   const [pageNumber, setPageNumber] = useState(1);
   const [userOptions, userSetOptions] = useState([]);
   const [objectiveOptions, setObjectiveOptions] = useState([]);
-  const { loading, error, goods, setGoods, hasMore } = useGoodsSearch(query, pageNumber);
+  const { loading, error, goods, setGoods, hasMore } = useGoodsSearch(
+    query,
+    pageNumber
+  );
 
   useEffect(() => {
     //userOptions
@@ -58,7 +68,10 @@ function Dashboard(props) {
               <InputGroup.Text id="basic-addon1">
                 <FiTool />
               </InputGroup.Text>
-              <FormControl placeholder="Поиск оборудования" onChange={handleSearch} />
+              <FormControl
+                placeholder="Поиск оборудования"
+                onChange={handleSearch}
+              />
               <Link to="/AddGoods" className="btn btn-success">
                 Добавить новое
                 <FiPlus />
@@ -69,7 +82,15 @@ function Dashboard(props) {
       </Container>
       <Row>
         {goods.map((equipment) => {
-          return <GoodsTile cb={unmountTile} userOptions={userOptions} objectiveOptions={objectiveOptions} key={equipment.id} {...equipment} />;
+          return (
+            <GoodsTile
+              cbUnmount={unmountTile}
+              userOptions={userOptions}
+              objectiveOptions={objectiveOptions}
+              key={equipment.id}
+              {...equipment}
+            />
+          );
         })}
       </Row>
       {loading && (

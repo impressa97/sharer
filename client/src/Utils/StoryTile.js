@@ -51,7 +51,7 @@ function StoryTile(props) {
           if (!response.data) {
             alert("Ошибка");
           } else {
-            props.cb(props.goodsId);
+            props.cbNewStory(response.data);
           }
         })
         .catch((error) => {

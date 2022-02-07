@@ -26,7 +26,7 @@ function GoodsTile(props) {
         if (!response.data.success) {
           alert("Ошибка");
         } else {
-          props.cb(id);
+          props.cbUnmount(id);
         }
       })
       .catch((error) => {
@@ -92,6 +92,11 @@ function GoodsTile(props) {
             </Col>
           </Row>
           <StoryTile
+            cbNewStory={(sqlData) => {
+              setBlocked(true);
+              setstoryTile([sqlData, ...storyTile]);
+              setBlocked(false);
+            }}
             goodsId={props.id}
             userOptions={props?.userOptions}
             objectiveOptions={props?.objectiveOptions}

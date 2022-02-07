@@ -29,6 +29,7 @@ const goods_story = sequelize.define(
       allowNull: true,
     },
     date: {
+      defaultValue: Sequelize.NOW,
       type: Sequelize.DATE,
       allowNull: true,
     },
@@ -48,8 +49,17 @@ const goods_story = sequelize.define(
   }
 );
 
-goods_story.belongsTo(objectives, { as: "objective_Alias", foreignKey: "objective_id" });
-goods_story.belongsTo(users, { as: "user_producerAlias", foreignKey: "user_producer_id" });
-goods_story.belongsTo(users, { as: "user_consumerAlias", foreignKey: "user_consumer_id" });
+goods_story.belongsTo(objectives, {
+  as: "objective_Alias",
+  foreignKey: "objective_id",
+});
+goods_story.belongsTo(users, {
+  as: "user_producerAlias",
+  foreignKey: "user_producer_id",
+});
+goods_story.belongsTo(users, {
+  as: "user_consumerAlias",
+  foreignKey: "user_consumer_id",
+});
 
 module.exports = goods_story;
