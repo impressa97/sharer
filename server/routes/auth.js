@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const users = require("../models/users.js");
+const user_roles = require("../models/user_roles.js");
 
 const jwt = require("jsonwebtoken");
 const { registerValidation, loginValidation } = require("../validation");
@@ -61,6 +62,11 @@ router.post("/login", async (req, res) => {
 router.post("/get-all-users", async (req, res) => {
   let usersSelect = await users.findAll();
   res.status(200).send(usersSelect);
+});
+
+router.post("/get-all-user-roles", async (req, res) => {
+  let userRoles = await user_roles.findAll();
+  res.status(200).send(userRoles);
 });
 
 module.exports = router;

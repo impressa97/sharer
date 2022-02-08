@@ -36,7 +36,9 @@ const users = sequelize.define(
     timestamps: false,
   }
 );
-
-users.hasOne(user_roles);
+users.belongsTo(user_roles, {
+  as: "user_roles_Alias",
+  foreignKey: "user_role_id",
+});
 
 module.exports = users;

@@ -1,8 +1,8 @@
-import { FiInstagram, FiTwitter } from "react-icons/fi";
+import { FiInstagram } from "react-icons/fi";
 import { FaVk } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { useContext } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { UserContext } from "../UserContext";
 
 const Layout = () => {
@@ -90,7 +90,7 @@ const Layout = () => {
         </nav>
       </header>
 
-      <main className="container vh-100">
+      <main className="container" style={{ minHeight: 600 }}>
         <Outlet />
       </main>
 
