@@ -1,7 +1,8 @@
-import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
+import { FiInstagram, FiTwitter } from "react-icons/fi";
+import { FaVk } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { useContext } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { UserContext } from "../UserContext";
 
 const Layout = () => {
@@ -27,7 +28,7 @@ const Layout = () => {
 
   return (
     <>
-      <header>
+      <header className="vh-10">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/about">
@@ -89,11 +90,11 @@ const Layout = () => {
         </nav>
       </header>
 
-      <main className="container">
+      <main className="container vh-100">
         <Outlet />
       </main>
 
-      <div className="container">
+      <div className="container vh-10">
         <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <span className="text-muted">© 2022 Макаров А.С</span>
@@ -102,18 +103,16 @@ const Layout = () => {
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">{logged()}</li>
             <li className="ms-3">
-              <Button variant="text-muted" to="#">
-                <FiTwitter />
+              <Button variant="text-muted" href="https://vk.com/impressa_one">
+                <FaVk />
               </Button>
             </li>
             <li className="ms-3">
-              <Button variant="text-muted" to="#">
+              <Button
+                variant="text-muted"
+                href="https://www.instagram.com/impressa.one/"
+              >
                 <FiInstagram />
-              </Button>
-            </li>
-            <li className="ms-3">
-              <Button variant="text-muted" to="#">
-                <FiFacebook />
               </Button>
             </li>
           </ul>
