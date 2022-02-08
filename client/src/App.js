@@ -6,6 +6,7 @@ import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
+import UserRoles from "./Pages/UserRoles";
 import AddGoods from "./Pages/AddGoods";
 
 import { RequireAuth } from "./Hoc/RequireAuth";
@@ -32,6 +33,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <Dashboard />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="user-roles"
+                element={
+                  <RequireAuth>
+                    <UserRoles />
                   </RequireAuth>
                 }
               />

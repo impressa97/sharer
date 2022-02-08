@@ -44,14 +44,7 @@ function Login() {
       });
   };
 
-  const handleLogout = () => {
-    setUserData({
-      token: null,
-      user: null,
-    });
-  };
-
-  const unlogged = (
+  return (
     <div className="LoginForm">
       <label>Email</label>
       <InputGroup className="mb-3">
@@ -100,18 +93,6 @@ function Login() {
       </div>
     </div>
   );
-
-  const logged = (
-    <Button onClick={handleLogout} className="m-1" variant="danger">
-      Выйти
-    </Button>
-  );
-
-  if (userData.user) {
-    return logged;
-  } else {
-    return unlogged;
-  }
 }
 
 export default Login;

@@ -1,8 +1,30 @@
 import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 import { NavLink, Outlet } from "react-router-dom";
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
+import { UserContext } from "../UserContext";
 
 const Layout = () => {
+  const [userContext, setUserContext] = useContext(UserContext);
+  const handleLogout = () => {
+    setUserContext({
+      token: null,
+      user: null,
+    });
+  };
+
+  const logged = () => {
+    if (!userContext?.token) {
+      return "";
+    } else {
+      return (
+        <Button onClick={handleLogout} className="m-1" variant="danger">
+          Выйти
+        </Button>
+      );
+    }
+  };
+
   return (
     <>
       <header>
@@ -32,24 +54,37 @@ const Layout = () => {
                     Новости
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/dashboard">
-                    Проверка оборудования
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/login">
-                    Войти
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/register">
-                    Регистрация
-                  </NavLink>
-                </li>
+                {userContext?.token && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/dashboard">
+                      Проверка оборудования
+                    </NavLink>
+                  </li>
+                )}
+                {userContext?.token && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/user-roles">
+                      Назначение прав пользователям
+                    </NavLink>
+                  </li>
+                )}
+                {!userContext?.token && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login">
+                      Войти
+                    </NavLink>
+                  </li>
+                )}
+                {!userContext?.token && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/register">
+                      Регистрация
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
-            {/* {userData.user ? userData.user.fio : ""} */}
+            {userContext.user ? userContext.user.fio : ""}
           </div>
         </nav>
       </header>
@@ -65,6 +100,7 @@ const Layout = () => {
           </div>
 
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li className="ms-3">{logged()}</li>
             <li className="ms-3">
               <Button variant="text-muted" to="#">
                 <FiTwitter />
