@@ -88,7 +88,13 @@ function Login() {
         </>
       )}
       <div>
-        <Button value={loading ? "Loading..." : "Login"} onClick={handleLogin} disabled={loading} className="m-1" variant="success">
+        <Button
+          value={loading ? "Loading..." : "Login"}
+          onClick={handleLogin}
+          disabled={loading}
+          className="m-1"
+          variant="success"
+        >
           Войти
         </Button>
       </div>

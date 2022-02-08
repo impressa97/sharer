@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const registerValidation = (data) => {
   const schema = Joi.object({
-    login: Joi.string().min(6).required(),
+    fio: Joi.string().min(6).required(),
     email: Joi.string().min(6).required().email(),
     password: Joi.string().min(6).required(),
     phone_number: Joi.string()

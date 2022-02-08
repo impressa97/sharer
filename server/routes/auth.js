@@ -9,11 +9,12 @@ router.post("/register", async (req, res) => {
   const { error } = registerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const registredUser = await user.findOne({
+  const registredUser = await users.findOne({
     where: { email: req.body.email },
   });
 
-  if (registredUser !== null) return res.status(400).send("Email is already exists");
+  if (registredUser !== null)
+    return res.status(400).send("Email is already exists");
 
   //HASH PAWWSORD
   const salt = await bcrypt.genSalt(10);
@@ -21,7 +22,7 @@ router.post("/register", async (req, res) => {
   try {
     users
       .create({
-        login: req.body.login,
+        fio: req.body.fio,
         password: hashPassword,
         email: req.body.email,
         phone_number: req.body.phone_number,
@@ -46,7 +47,8 @@ router.post("/login", async (req, res) => {
     where: { email: req.body.email },
   });
 
-  if (loginUser === null) return res.status(400).send("Email or Password does not exist");
+  if (loginUser === null)
+    return res.status(400).send("Email or Password does not exist");
 
   const validPass = await bcrypt.compare(req.body.password, loginUser.password);
   if (!validPass) return res.status(400).send("Invalid password");

@@ -11,7 +11,7 @@ const users = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    login: {
+    fio: {
       type: Sequelize.STRING,
       allowNull: false,
     },

@@ -129,7 +129,7 @@ function StoryTile(props) {
                     setUserProducerId(Number(e.target.value));
                   }}
                   disabled={disabled}
-                  activeUserId={props?.storyTile?.user_producer_id}
+                  activeUserId={userProducerId}
                   userOptions={props?.userOptions}
                 />
               </Col>
@@ -144,7 +144,7 @@ function StoryTile(props) {
                     setUserConsumerId(Number(e.target.value));
                   }}
                   disabled={disabled}
-                  activeUserId={props?.storyTile?.user_consumer_id}
+                  activeUserId={userConsumerId}
                   userOptions={props?.userOptions}
                 />
               </Col>
@@ -160,7 +160,7 @@ function StoryTile(props) {
                   }}
                   disabled={disabled}
                   objectiveOptions={props?.objectiveOptions}
-                  activeObjective={props?.storyTile?.objective_id}
+                  activeObjective={objectiveId}
                 />
               </Col>
             </Row>
@@ -177,7 +177,7 @@ function StoryTile(props) {
                   setNote(e.target.value);
                 }}
                 disabled={disabled}
-                defaultValue={props?.storyTile?.note}
+                defaultValue={note}
               />
             </Col>
           </Row>

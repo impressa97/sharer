@@ -104,7 +104,8 @@ function GoodsTile(props) {
           {storyTile.map((value) => {
             return (
               <StoryTile
-                goodsId={props.id}
+                key={value.id}
+                goodsId={value.goods_id}
                 userOptions={props?.userOptions}
                 storyTile={value}
                 objectiveOptions={props?.objectiveOptions}

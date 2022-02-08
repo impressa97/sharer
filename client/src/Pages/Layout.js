@@ -22,7 +22,10 @@ const Layout = () => {
             >
               <span className="navbar-toggler-icon"></span>
             </Button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/">
@@ -46,7 +49,7 @@ const Layout = () => {
                 </li>
               </ul>
             </div>
-            {/* {userData.user ? userData.user.login : ""} */}
+            {/* {userData.user ? userData.user.fio : ""} */}
           </div>
         </nav>
       </header>

@@ -12,7 +12,7 @@ function Register(props) {
   const [registrationStatus, setRegistrationStatus] = useState(null);
 
   //Данные формы
-  const [login, setLogin] = useState("");
+  const [fio, setFio] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +20,7 @@ function Register(props) {
   const register = () => {
     axios
       .post("http://localhost:3001/api/user/register", {
-        login: login,
+        fio: fio,
         phone_number: phone,
         email: email,
         password: password,
@@ -48,11 +48,11 @@ function Register(props) {
           </InputGroup.Text>
           <FormControl
             onChange={(e) => {
-              setLogin(e.target.value);
+              setFio(e.target.value);
             }}
-            name="login"
-            placeholder="Имя пользователя"
-            aria-label="login"
+            name="fio"
+            placeholder="Введите ФИО"
+            aria-label="fio"
             aria-describedby="basic-addon1"
           />
         </InputGroup>
