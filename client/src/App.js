@@ -8,6 +8,7 @@ import About from "./Pages/About";
 import Home from "./Pages/Home";
 import UserRoles from "./Pages/UserRoles";
 import AddGoods from "./Pages/AddGoods";
+import Rent from "./Pages/Rent";
 
 import { RequireAuth } from "./Hoc/RequireAuth";
 import { Layout } from "./Pages/Layout";
@@ -46,6 +47,8 @@ function App() {
               />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route path="rent/samokati" element={<Rent type_id={1} />} />
+              <Route path="rent/velosipedi" element={<Rent type_id={2} />} />
               <Route path="about" element={<About />} />
               <Route
                 path="AddGoods"

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db/db");
+const goods_story = require("./goods_story.js");
 
 const objectives = sequelize.define(
   "objectives",
@@ -11,6 +12,14 @@ const objectives = sequelize.define(
       primaryKey: true,
     },
     title: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    title_for_guest: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    variant: {
       type: Sequelize.STRING,
       allowNull: true,
     },

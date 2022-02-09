@@ -5,6 +5,7 @@ const verify = require("./verifyToken");
 const goods = require("../models/goods.js");
 const goods_story = require("../models/goods_story.js");
 const users = require("../models/users.js");
+const objectives = require("../models/objectives.js");
 
 const multer = require("multer");
 var storage = multer.diskStorage({
@@ -21,15 +22,11 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/get-goods", verify, async (req, res) => {
-  const page = req.query.page * 3 * 100;
   var goodsArray = [];
   if (req.query.q)
     try {
       goodsArray = await goods.findAll({
         where: {
-          id: {
-            [Op.lt]: page,
-          },
           title: {
             [Op.substring]: req.query.q || "",
           },
@@ -39,6 +36,35 @@ router.get("/get-goods", verify, async (req, res) => {
       console.log(e);
     }
   console.log(goodsArray);
+  res.status(200).send(goodsArray);
+});
+
+router.post("/get-goods-by-type_id", async (req, res) => {
+  var goodsArray = [];
+  try {
+    goodsArray = await goods.findAll({
+      where: {
+        type_id: {
+          [Op.eq]: req.body.type_id,
+        },
+      },
+    });
+    goodsArray = await Promise.all(
+      goodsArray.map(async (val) => {
+        var status = await goods_story.findAll({
+          include: { model: objectives, as: "objective_Alias" },
+          where: { goods_id: val.id },
+          order: [["date", "DESC"]],
+        });
+        return {
+          data: val,
+          status: status[0],
+        };
+      })
+    );
+  } catch (e) {
+    console.log(e);
+  }
   res.status(200).send(goodsArray);
 });
 

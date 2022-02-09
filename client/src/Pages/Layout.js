@@ -52,17 +52,17 @@ const Layout = () => {
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/">
-                    Новости
+                    Новости для наших пользователей
                   </NavLink>
                 </li>
-                {userContext?.token && (
+                {userContext?.user?.user_role_id == 1 && (
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/dashboard">
                       Проверка оборудования
                     </NavLink>
                   </li>
                 )}
-                {userContext?.token && (
+                {userContext?.user?.user_role_id == 1 && (
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/user-roles">
                       Назначение прав пользователям
@@ -73,6 +73,20 @@ const Layout = () => {
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/login">
                       Войти
+                    </NavLink>
+                  </li>
+                )}
+                {userContext?.user?.user_role_id == 2 && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/rent/samokati">
+                      Самокаты
+                    </NavLink>
+                  </li>
+                )}
+                {userContext?.user?.user_role_id == 2 && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/rent/velosipedi">
+                      Велосипеды
                     </NavLink>
                   </li>
                 )}

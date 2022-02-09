@@ -36,6 +36,7 @@ const RequireAuth = ({ children }) => {
   if (auth === true) {
     return children;
   } else {
+    alert("Сначала станьте участником клуба!");
     return <Navigate to="/login" state={{ from: location }} />;
   }
 };
