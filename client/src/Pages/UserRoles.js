@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const UserRoles = () => {
   const [users, setUsers] = useState([]);
@@ -9,15 +8,31 @@ const UserRoles = () => {
   const [userRoles, setUserRoles] = useState([]);
   const [findUserString, setFindUserString] = useState("");
 
-  //loadings
+  function ChangeUserRole(user_id, role_id) {
+    axios
+      .post("http://localhost:3001/api/user/set-user-role", {
+        user_id,
+        role_id,
+      })
+      .then((response) => {
+        if (!response.data) {
+          alert("Internal error");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  //default loadings
   useEffect(() => {
     //loading users
     axios
       .post("http://localhost:3001/api/user/get-all-users")
       .then((response) => {
         if (response.data) {
-          setUsersBackup(response.data);
           setUsers(response.data);
+          setUsersBackup(response.data);
         } else {
           alert("Internal error");
         }
@@ -47,6 +62,7 @@ const UserRoles = () => {
       });
   }, []);
 
+  //find users
   useEffect(() => {
     if (findUserString !== "") {
       setUsers(
@@ -55,7 +71,7 @@ const UserRoles = () => {
     } else {
       setUsers(usersBackup);
     }
-  }, [findUserString]);
+  }, [findUserString, usersBackup, users]);
 
   let userRow = (userData) => {
     return (
@@ -69,7 +85,12 @@ const UserRoles = () => {
           />
         </Form.Group>
         <Form.Group as={Col} controlId="formGridUserRole">
-          <Form.Select defaultValue={userData?.user_role_id}>
+          <Form.Select
+            onChange={(e) =>
+              ChangeUserRole(userData.id, Number(e.target.value))
+            }
+            defaultValue={userData?.user_role_id}
+          >
             {userRoles}
           </Form.Select>
         </Form.Group>

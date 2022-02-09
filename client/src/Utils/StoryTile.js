@@ -40,6 +40,7 @@ function StoryTile(props) {
             goods_id: props.goodsId,
             objective_id: objectiveId,
             note: note,
+            user_id: userData.user.id,
           },
           {
             headers: {
@@ -55,7 +56,7 @@ function StoryTile(props) {
           }
         })
         .catch((error) => {
-          alert("Ошибка");
+          alert(error.response.data);
         });
     else alert("Заполните форму");
   }

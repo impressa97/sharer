@@ -69,4 +69,14 @@ router.post("/get-all-user-roles", async (req, res) => {
   res.status(200).send(userRoles);
 });
 
+router.post("/set-user-role", async (req, res) => {
+  try {
+    var userToChangeRole = await users.findByPk(req.body.user_id);
+    userToChangeRole.user_role_id = req.body.role_id;
+    await userToChangeRole.update({ user_role_id: req.body.role_id });
+  } catch {
+    res.status(400).send(false);
+  }
+});
+
 module.exports = router;

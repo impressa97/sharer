@@ -92,24 +92,29 @@ router.post("/get-goods-story", verify, async (req, res) => {
       console.log(e);
       return res.status(400).send({ error: true });
     }
-  console.log(goodsStoryArray);
   return res.status(200).send({ error: false, goodsStoryArray });
 });
 
 router.post("/insert-goods-story", verify, async (req, res) => {
   let goods_story_instance;
-  try {
-    goods_story_instance = await goods_story.create({
-      user_producer_id: req.body.user_producer_id,
-      user_consumer_id: req.body.user_consumer_id,
-      goods_id: req.body.goods_id,
-      hp: req.body.hp,
-      objective_id: req.body.objective_id,
-      note: req.body.note,
-    });
-  } catch (e) {
-    return res.status(400).send(e);
+
+  var userRoleId = await users.findByPk(req.user.id); //getting user from middleware(^verify)
+  console.log(userRoleId);
+  if (userRoleId.user_role_id == 1) {
+    try {
+      goods_story_instance = await goods_story.create({
+        user_producer_id: req.body.user_producer_id,
+        user_consumer_id: req.body.user_consumer_id,
+        goods_id: req.body.goods_id,
+        hp: req.body.hp,
+        objective_id: req.body.objective_id,
+        note: req.body.note,
+      });
+    } catch (e) {
+      return res.status(400).send(e);
+    }
+    return res.status(200).send(goods_story_instance);
   }
-  return res.status(200).send(goods_story_instance);
+  return res.status(400).send("Необходимо обладать правами администратора");
 });
 module.exports = router;

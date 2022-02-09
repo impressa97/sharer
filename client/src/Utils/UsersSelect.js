@@ -18,7 +18,11 @@ function UsersSelect(props) {
         </option>
       )}
       {props?.userOptions.map((val) => {
-        return <option value={val.id}>{val.fio}</option>;
+        return (
+          <option key={val.id} value={val.id}>
+            {val.fio}
+          </option>
+        );
       })}
     </Form.Select>
   );
