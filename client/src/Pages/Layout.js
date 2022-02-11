@@ -100,6 +100,7 @@ const Layout = () => {
               </ul>
             </div>
             {userContext.user ? userContext.user.fio : ""}
+            {logged()}
           </div>
         </nav>
       </header>
@@ -115,7 +116,6 @@ const Layout = () => {
           </div>
 
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li className="ms-3">{logged()}</li>
             <li className="ms-3">
               <Button variant="text-muted" href="https://vk.com/impressa_one">
                 <FaVk />

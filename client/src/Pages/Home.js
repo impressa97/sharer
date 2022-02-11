@@ -17,7 +17,7 @@ function Home() {
           </div>
         </div>
 
-        <div class="row mb-2">
+        <div class="row mt-3">
           <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
               <div class="card-body d-flex flex-column align-items-start">
@@ -25,7 +25,7 @@ function Home() {
                   Электричество!
                 </strong>
                 <h3 class="mb-0">
-                  <NavLink class="text-dark" to="/dashboard">
+                  <NavLink class="text-dark" to="rent/samokati">
                     Теперь у нас возможно арендовать элеткросамокаты
                   </NavLink>
                 </h3>
@@ -46,7 +46,11 @@ function Home() {
                   Велосипеды
                 </strong>
                 <h3 class="mb-0">
-                  <NavLink class="text-dark" to="/dashboard/">
+                  <NavLink
+                    class="text-dark"
+                    to="rent/velosipedi
+                  "
+                  >
                     Велосипеды в доступе
                   </NavLink>
                 </h3>
